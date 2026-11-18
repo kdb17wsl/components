@@ -1,0 +1,4 @@
+add_executable(framework_smoke_test framework_smoke_test.cpp)
+target_link_libraries(framework_smoke_test PRIVATE components::components)
+set_target_properties(framework_smoke_test PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
+add_test(NAME framework_smoke_test COMMAND framework_smoke_test)
