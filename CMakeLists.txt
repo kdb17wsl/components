@@ -6,10 +6,19 @@ project(components
     LANGUAGES CXX
 )
 
-add_library(components INTERFACE)
+file(GLOB_RECURSE COMPONENT_SOURCES CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+)
+
+if(COMPONENT_SOURCES)
+    add_library(components ${COMPONENT_SOURCES})
+else()
+    add_library(components INTERFACE)
+endif()
+
 add_library(components::components ALIAS components)
 target_include_directories(components INTERFACE
-    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>"
     "$<INSTALL_INTERFACE:include>"
 )
 target_compile_features(components INTERFACE cxx_std_20)
